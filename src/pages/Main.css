@@ -1,0 +1,83 @@
+.main-container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 50px 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.main-container h1 {
+    color: midnightblue;
+}
+
+.main-container p {
+    margin-top: 3%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.add-task {
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-task p {
+    font-size: 16px;
+    color: gray;
+}
+
+.add-task form {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+.add-task form input {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #666;
+    height: 48px;
+}
+
+#description {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 20px;
+    font-size: 16px;
+    height: 250px;
+    line-height: 40px;
+    resize: none;
+}
+
+#description::placeholder {
+    color: #999999;
+}
+
+.add-task form input::placeholder {
+    color: #999999;
+}
+
+.add-task form button {
+    margin-top: 10px;
+    border: 0;
+    border-radius: 4px;
+    height: 48px;
+    font-size: 16px;
+    background: #DF4723;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
+
+.add-task form select {
+    margin-top: 20px;
+}
