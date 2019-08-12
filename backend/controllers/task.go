@@ -13,13 +13,13 @@ func AddTask (w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		body, err := ioutil.ReadAll(r.Body)
 		if err != nil {
-			panic(err)
+			fmt.Println(err)
 		}
 
 		var task models.Task
 		err = json.Unmarshal(body, &task)
 		if err != nil {
-			panic(err)
+			fmt.Println(err)
 		}
 		query := "insert into task(title, description, created_date, last_modified, priority) values(?,?,datetime(), datetime(),?)"
 		restoreSQL, err := Database.Prepare(query)
@@ -35,7 +35,7 @@ func AddTask (w http.ResponseWriter, r *http.Request) {
 			tx.Commit()
 		}
 
-		res := models.Res{"false","Task add with success!"}
+		res := models.Res{false,"Task add with success!"}
 		resJSON, err := json.Marshal(res)
 		if err != nil {
 			log.Println(err)

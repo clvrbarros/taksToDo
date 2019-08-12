@@ -9,6 +9,6 @@ type Task struct {
 
 //Res is type the model for responses
 type Res struct {
-	Err string `json:"err"`
+	Err bool `json:"err"`
 	Message string `json:"message"`
 }
