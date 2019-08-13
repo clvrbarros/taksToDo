@@ -7,6 +7,10 @@ type Task struct {
 	Priority int `json:"priority"`
 }
 
+//type Context struct {
+//	Tasks []Task `json:"tasks"`
+//}
+
 //Res is type the model for responses
 type Res struct {
 	Err bool `json:"err"`
