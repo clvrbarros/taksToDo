@@ -1,32 +1,39 @@
 package controllers
 
 import (
-	"bytes"
+	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
 func TestAddTask(t *testing.T) {
-	var jsonStr = []byte(`{"title":"teste","description":"tested","priority":0}`)
-
-	req, err := http.NewRequest("POST", "/addtask",bytes.NewBuffer(jsonStr))
-	if err != nil {
-		t.Fatal(err)
-	}
-	req.Header.Set("Content-Type", "application/json")
-	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(AddTask)
-	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusOK)
-	}
-	expected := `{"err":false,"message":"Task add with success!"}`
-	if rr.Body.String() != expected {
-		t.Errorf("handler func unexpected body: got %v want %v", rr.Body.String(), expected)
+	content := `{
+	 "title":"teste3",
+     "description":"teste3",
+     "priority":3
+	}`
+	expected := `{"err":false,"message":"Task add with success!"}
+`
+	e := echo.New()
+	req := httptest.NewRequest(http.MethodPost, "/task",strings.NewReader(content))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec := httptest.NewRecorder()
+	c:= e.NewContext(req,rec)
+	if assert.NoError(t, AddTask(c)) {
+		assert.Equal(t, http.StatusCreated, rec.Code)
+		assert.Equal(t, expected, rec.Body.String())
 	}
 }
 
 func TestGetTasks(t *testing.T) {
-
+	e := echo.New()
+	req := httptest.NewRequest(http.MethodGet,"/tasks",nil)
+	rec := httptest.NewRecorder()
+	c := e.NewContext(req,rec)
+	if assert.NoError(t, GetTasks(c)) {
+		assert.Equal(t, http.StatusOK, rec.Code)
+	}
 }

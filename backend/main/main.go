@@ -2,14 +2,16 @@ package main
 
 import (
 	"backend/controllers"
-	"fmt"
+	"github.com/labstack/echo"
 	"log"
 	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/addtask", controllers.AddTask)
-	http.HandleFunc("/tasks", controllers.GetTasks)
-	fmt.Println("running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	defer controllers.Database.Close()
+	e := echo.New()
+	e.GET("/task/:id", controllers.GetTask)
+	e.GET("/tasks", controllers.GetTasks)
+	e.POST("/task", controllers.AddTask)
+	log.Fatal(http.ListenAndServe(":8080",e))
 }
