@@ -21,7 +21,7 @@ func TestAddTask(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/task",strings.NewReader(content))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
-	c:= e.NewContext(req,rec)
+	c := e.NewContext(req,rec)
 	if assert.NoError(t, AddTask(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
 		assert.Equal(t, expected, rec.Body.String())
